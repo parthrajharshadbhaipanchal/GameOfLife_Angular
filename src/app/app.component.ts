@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/common_components/navbar/navbar.component';
+import { MatrixsizeformComponent } from './components/matrixsizeform/matrixsizeform.component';
 
 @Component({
   selector: 'app-root',
