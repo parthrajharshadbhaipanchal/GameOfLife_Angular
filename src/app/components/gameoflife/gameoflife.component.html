@@ -1,3 +1,21 @@
 <div class="container">
-    <app-matrixsizeform></app-matrixsizeform>
+    <div class="container col-10">
+        <div class="container mt-4">
+            <form class="row justify-content-start" (ngSubmit)="submitButtonClicked($event)">            
+                <div class="col-md-2 border-bottom pb-3">
+                  <label for="matrixSize" class="form-label">Enter the matrix size:</label>
+                </div>
+                <div class="col-md-2 border-bottom">
+                  <input type="number" class="form-control" id="matrixSize"  name="matrixSize">              
+                  <!--[(ngModel)]="matrixSizParent"-->
+                </div>
+                <div class="col-md-2 border-bottom">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+        </div>
+    </div>    
+    <br/>
+    <hr/>
+    <app-golmatrix [matrixSize]="matrixSizParent"></app-golmatrix>
 </div>

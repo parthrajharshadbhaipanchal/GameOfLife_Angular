@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatrixsizeformComponent } from './matrixsizeform.component';
+import { CellComponent } from './cell.component';
 
-describe('MatrixsizeformComponent', () => {
-  let component: MatrixsizeformComponent;
-  let fixture: ComponentFixture<MatrixsizeformComponent>;
+describe('CellComponent', () => {
+  let component: CellComponent;
+  let fixture: ComponentFixture<CellComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatrixsizeformComponent]
+      imports: [CellComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MatrixsizeformComponent);
+    fixture = TestBed.createComponent(CellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
