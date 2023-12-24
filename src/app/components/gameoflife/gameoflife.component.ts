@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class GameoflifeComponent {
 
   @Output() public matrixSizParent:number=0;
+  public maxMatrixLimit:number=50;
 
   public submitButtonClicked(event:any){    
     this.matrixSizParent=event.target.matrixSize.value;

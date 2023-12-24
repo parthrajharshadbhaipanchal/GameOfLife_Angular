@@ -1,2 +1,3 @@
-    <div [ngClass]="{'bg-dark':IsActive}"  class="square border border-dark rounded m-1">
+    <div [ngClass]="{'bg-dark':IsActive}"  [ngStyle]="!IsLast?{'float':'left'}:{}" class="square border border-dark rounded m-1">
+    {{DivisionId}}
     </div>

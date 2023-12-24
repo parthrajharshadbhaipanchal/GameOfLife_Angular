@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, ComponentRef, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { CellComponent } from './cell/cell.component';   
+import { BrcomponentComponent } from '../brcomponent/brcomponent.component';
 
 @Component({
   selector: 'app-golmatrix',
@@ -9,15 +11,28 @@ import { Component, Input } from '@angular/core';
   styleUrl: './golmatrix.component.css'
 })
 export class GolmatrixComponent {
- 
- @Input() public matrixSize?:number; 
 
-  constructor(){
+ @Output() public PushNextGenerationEvent=new EventEmitter();
+ @Output() public componentRefsList:ComponentRef<CellComponent>[]=[];
+ @Input() public matrixSize:number=0; 
+ @ViewChild('matrixContainer', { read: ViewContainerRef }) container!: ViewContainerRef;
+  
+  constructor(){  }
+
+  ngOnChanges(){
+    this.container?.clear();  
+    let totalMatrixElements=this.matrixSize*this.matrixSize;
+
+    for(let i=1;i<=totalMatrixElements;i++)  {      
+      let component=this.container.createComponent(CellComponent);
+      console.log("I module matrix size:"+i%this.matrixSize );
+      component.instance.DivisionId=i;      
+      this.componentRefsList.push(component);      
+
+      //add line break component
+      if(i%this.matrixSize==0){
+        this.container.createComponent(BrcomponentComponent);
+      }
+    }      
   }
-
-  ngOnChanges(changes: { [property: number]: any }){
-    console.log('ng on change executed : '+ this.matrixSize);
-  }
-
-
 }
