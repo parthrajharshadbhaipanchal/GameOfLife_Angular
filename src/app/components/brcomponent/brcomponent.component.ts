@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-brcomponent',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './brcomponent.component.html',
   styleUrl: './brcomponent.component.css'
 })

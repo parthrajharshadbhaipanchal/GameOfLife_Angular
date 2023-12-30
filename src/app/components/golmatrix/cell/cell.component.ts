@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-cell',
@@ -8,23 +8,21 @@ import { Component, Input } from '@angular/core';
   templateUrl: './cell.component.html',
   styleUrl: './cell.component.css'
 })
-export class CellComponent {
+export class CellComponent{
 
-  @Input() public SurroundActiveStatus: boolean[] = [
-    false, false, false,
-    false, false,
-    //true,true,
-    false, false, false
-  ];
-  public IsActive: boolean = false;
-  @Input() public IsLast:boolean=false;
+  @Input() public IsActive: boolean = false;  
   @Input() public DivisionId?:number;
+  @Input() public IsEditingEnabled:boolean=false;
 
-  ProceedNextGeneration() {
-    if (this.IsActive) {
-      this.IsActive = (this.SurroundActiveStatus.filter(x => x).length in [2, 3])
-    } else {
-      this.IsActive = (this.SurroundActiveStatus.filter(x => x)).length == 3;
+  ngOnChanges(changes: SimpleChanges){
+    if (changes['SurroundActiveStatus']) {
+    //  this.ProceedNextGeneration();
     }
+  }
+
+
+
+  CellClickEvent(args:Event){        
+    this.IsActive=!this.IsActive;    
   }
 }
