@@ -22,7 +22,7 @@ export class GolmatrixComponent {
   constructor() { }
 
   public StartTimer(){
-    this.timer=setInterval(this.GotoNextGeneration,1000);
+    this.timer=setInterval(()=>this.GotoNextGeneration(),100);
   }
 
   StopTimer(){
