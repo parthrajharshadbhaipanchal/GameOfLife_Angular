@@ -1,5 +1,5 @@
 .square {
-    width: 30px; /* Adjust the width to your desired size */
-    height: 30px; /* Equal height to create a square */  
+    width: 20px; /* Adjust the width to your desired size */
+    height: 20px; /* Equal height to create a square */  
     float: left
   }

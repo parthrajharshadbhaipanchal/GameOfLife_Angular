@@ -1,7 +1,32 @@
 <div class="border">
-    <button class="btn btn-sm btn-primary" (click)="GotoNextGeneration()">Next Generation</button>
-    <button class="btn btn-sm btn-secondary ms-3" (click)="StartTimer()">Start timer</button>
+    <div class="row">
+    <div class="col-6">
+        <!-- Next stage button -->
+        <button class="btn btn-sm btn-primary bi bi-forward-fill" title="Go to next generation state"
+            (click)="GotoNextGeneration()">| Next State</button>
+        <!-- Start button -->
+        <button class="btn btn-sm btn-success ms-2 bi bi-play-fill" title="Start animation"
+            [ngClass]="AnimationState?'disabled':''" (click)="StartTimer()"></button>
+        <!-- Pause button -->
+        <button class="btn btn-sm btn-warning ms-2 bi bi-pause-fill" title="Stop/Pause animation"
+            [ngClass]="!AnimationState?'disabled':''" (click)="StopTimer()"></button>
+        <!-- Reset button -->
+        <button class="btn btn-sm btn-danger ms-2 bi bi-arrow-clockwise" title="Reset matrix"
+            (click)="CreateNewCellMatrixOrReset()"></button>
+    </div>
+    <div class="text-right border col-6 d-flex">
+        <!-- Template 1 :- Glider -->
+        <button class="btn btn-sm btn-primary ms-2 bi bi-1-circle" title="Reset matrix"
+            (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
+        <!-- Template 2 :- Pulsar -->
+        <button class="btn btn-sm btn-primary ms-2 bi bi-2-circle" title="Reset matrix"
+            (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
+        <!-- Template 3 :- Pulsar -->
+        <button class="btn btn-sm btn-primary ms-2 bi bi-2-circle" title="Reset matrix"
+        (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
+    </div>
+</div>
     <table>
-    <ng-template #matrixContainer></ng-template>
+        <ng-template #matrixContainer></ng-template>
     </table>
 </div>

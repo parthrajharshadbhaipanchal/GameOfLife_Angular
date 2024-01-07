@@ -1,11 +1,12 @@
 import { Component, EventEmitter, ComponentRef, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { CellComponent } from './cell/cell.component';
 import { BrcomponentComponent } from '../brcomponent/brcomponent.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-golmatrix',
   standalone: true,
-  imports: [BrcomponentComponent],
+  imports: [BrcomponentComponent,CommonModule],
   templateUrl: './golmatrix.component.html',
   styleUrl: './golmatrix.component.css'
 })
@@ -15,6 +16,7 @@ export class GolmatrixComponent {
   @Output() public componentRefsList: ComponentRef<CellComponent>[][] = [];
   @Input() public matrixSize: number = 0;
   @ViewChild('matrixContainer', { read: ViewContainerRef }) container!: ViewContainerRef;
+  public AnimationState:boolean=false;
 
   nextGenerationStatusList: boolean[][] = [];
   timer:any;
@@ -22,18 +24,27 @@ export class GolmatrixComponent {
   constructor() { }
 
   public StartTimer(){
-    this.timer=setInterval(()=>this.GotoNextGeneration(),100);
+    this.timer=setInterval(()=>this.GotoNextGeneration(),50);
+    this.AnimationState=true;
   }
 
-  StopTimer(){
-    clearInterval(this.timer);
+  
+  public StopTimer(){
+    if(null!=this.timer){
+      clearInterval(this.timer);
+      this.AnimationState=false;
+    }
   }
 
-  ngOnChanges() {
-    this.CreateNewCellMatrix();
+  public ngOnChanges() {
+    this.CreateNewCellMatrixOrReset();
   }
 
-  CreateNewCellMatrix(){
+  public CreateNewCellMatrixOrReset(){
+    this.componentRefsList=[];
+    this.nextGenerationStatusList=[];
+    this.container?.clear();
+    this.AnimationState=false;
     for (let i = 1; i <= this.matrixSize; i++) {
       let componentArray: ComponentRef<CellComponent>[] = [];
       let booleanArray:boolean[]=[];
@@ -54,12 +65,12 @@ export class GolmatrixComponent {
     }
   }
 
-  GotoNextGeneration() {
+  public GotoNextGeneration() {
     this.CalculateNextGenerationForMatrix();
     this.ApplyNextGenerationState();
   }
 
-  ApplyNextGenerationState() {
+  private ApplyNextGenerationState() {
     for (let i = 0; i < this.matrixSize; i++) {
       for (let j = 0; j < this.matrixSize; j++) {
         this.componentRefsList[i][j].instance.IsActive = this.nextGenerationStatusList[i][j];
@@ -67,7 +78,7 @@ export class GolmatrixComponent {
     }
   }
 
-  CalculateNextGenerationForMatrix() {   
+  private CalculateNextGenerationForMatrix() {   
     for (let i = 0; i < this.matrixSize; i++) {
       for (let j = 0; j < this.matrixSize; j++) {
         this.nextGenerationStatusList[i][j] = this.GetNextStateOfCell(i, j);
@@ -75,7 +86,7 @@ export class GolmatrixComponent {
     }
   }
 
-  GetNextStateOfCell(i: number, j: number): boolean {
+  private GetNextStateOfCell(i: number, j: number): boolean {
     let aliveCell: boolean[] = [];
     let nextState: boolean = false;
 
