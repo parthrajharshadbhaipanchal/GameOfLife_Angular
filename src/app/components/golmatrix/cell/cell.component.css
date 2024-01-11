@@ -3,3 +3,8 @@
     height: 20px; /* Equal height to create a square */  
     float: left
   }
+
+  .custom-margin{
+    margin-top:5px;
+     margin-left: 5px;
+  }

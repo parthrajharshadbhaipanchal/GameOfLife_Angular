@@ -2,11 +2,12 @@ import { Component, EventEmitter, ComponentRef, Input, Output, ViewChild, ViewCo
 import { CellComponent } from './cell/cell.component';
 import { BrcomponentComponent } from '../brcomponent/brcomponent.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-golmatrix',
   standalone: true,
-  imports: [BrcomponentComponent,CommonModule],
+  imports: [BrcomponentComponent,CommonModule,FormsModule],
   templateUrl: './golmatrix.component.html',
   styleUrl: './golmatrix.component.css'
 })
@@ -16,18 +17,36 @@ export class GolmatrixComponent {
   @Output() public componentRefsList: ComponentRef<CellComponent>[][] = [];
   @Input() public matrixSize: number = 0;
   @ViewChild('matrixContainer', { read: ViewContainerRef }) container!: ViewContainerRef;
+  public AnimationSpeed:number=0;
   public AnimationState:boolean=false;
 
   nextGenerationStatusList: boolean[][] = [];
   timer:any;
 
+  gliderPattern:number[][]=[
+    [0,1,2,2,2],
+    [1,2,0,1,2]
+  ];
+
+  pulsarPattern:number[][]=[
+    [4,4,4, 4, 4, 4, 6,6, 6, 6, 7,7, 7, 7, 8,8, 8, 8, 9,9,9, 9, 9, 9, 11,11,11,11,11,11, 12,12,12,12, 13,13,13,13, 14,14,14,14, 16,16,16,16,16,16],
+
+//    [2,3,4,8,9,10,0,5,7,12,0,5,7,12,0,5,7,12,2,3,4,8,9,10,2,3,4,8,9,10, 0, 5, 7,12, 0, 5, 7,12, 0, 5, 7,12, 2, 3, 4, 8, 9,10]
+    [6,7,8,12,13,14, 4,9,11,16, 4,9,11,16, 4,9,11,16, 6,7,8,12,13,14,  6, 7, 8,12,13,14,  4, 9,11,16,  4, 9,11,16,  4, 9,11, 16,  6,7, 8,12,13,14]
+
+  ];
+
   constructor() { }
 
-  public StartTimer(){
-    this.timer=setInterval(()=>this.GotoNextGeneration(),50);
-    this.AnimationState=true;
+  public AnimationPaceChanged(){
+    this.StopTimer();
+    this.StartTimer();    
   }
 
+  public StartTimer(){    
+    this.timer=setInterval(()=>this.GotoNextGeneration(),((1/this.AnimationSpeed)*1000));
+    this.AnimationState=true;
+  }
   
   public StopTimer(){
     if(null!=this.timer){
@@ -56,7 +75,7 @@ export class GolmatrixComponent {
         booleanArray.push(false);
 
         //add line break component
-        if ((i + j - 1) % this.matrixSize == 0) {
+        if ((i + j -1) % this.matrixSize <= 0) {
           this.container.createComponent(BrcomponentComponent);
         }
       }
@@ -68,6 +87,22 @@ export class GolmatrixComponent {
   public GotoNextGeneration() {
     this.CalculateNextGenerationForMatrix();
     this.ApplyNextGenerationState();
+  }
+
+  public AddGliderPattern(){
+    for(let index=0;index<this.gliderPattern[0].length;index++){
+      this.componentRefsList[this.gliderPattern[0][index]][this.gliderPattern[1][index]].instance.IsActive=true;
+    }
+  }
+
+  public AddPulsarPattern(){
+    for(let index=0;index<this.pulsarPattern[0].length;index++){
+      this.componentRefsList[this.pulsarPattern[0][index]][this.pulsarPattern[1][index]].instance.IsActive=true;
+    }
+  }
+
+  public AddRandomCells(){
+
   }
 
   private ApplyNextGenerationState() {

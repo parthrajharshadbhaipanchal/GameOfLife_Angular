@@ -1,32 +1,36 @@
-<div class="border">
+<div class="">
     <div class="row">
-    <div class="col-6">
-        <!-- Next stage button -->
-        <button class="btn btn-sm btn-primary bi bi-forward-fill" title="Go to next generation state"
-            (click)="GotoNextGeneration()">| Next State</button>
-        <!-- Start button -->
-        <button class="btn btn-sm btn-success ms-2 bi bi-play-fill" title="Start animation"
-            [ngClass]="AnimationState?'disabled':''" (click)="StartTimer()"></button>
-        <!-- Pause button -->
-        <button class="btn btn-sm btn-warning ms-2 bi bi-pause-fill" title="Stop/Pause animation"
-            [ngClass]="!AnimationState?'disabled':''" (click)="StopTimer()"></button>
-        <!-- Reset button -->
-        <button class="btn btn-sm btn-danger ms-2 bi bi-arrow-clockwise" title="Reset matrix"
-            (click)="CreateNewCellMatrixOrReset()"></button>
+        <div class="col-6">
+            <!-- Next stage button -->
+            <button class="btn btn-sm btn-primary bi bi-forward-fill" title="Go to next generation state"
+                (click)="GotoNextGeneration()">| Next State</button>
+            <!-- Start button -->
+            <button class="btn btn-sm btn-success ms-2 bi bi-play-fill" title="Start animation"
+                [ngClass]="AnimationState?'disabled':''" (click)="StartTimer()"></button>
+            <!-- Pause button -->
+            <button class="btn btn-sm btn-warning ms-2 bi bi-pause-fill" title="Stop/Pause animation"
+                [ngClass]="!AnimationState?'disabled':''" (click)="StopTimer()"></button>
+            <!-- Reset button -->
+            <button class="btn btn-sm btn-danger ms-2 bi bi-arrow-clockwise" title="Reset matrix"
+                (click)="CreateNewCellMatrixOrReset()"></button>
+        </div>
+        <div class="text-right   col-6 d-flex">
+            <!-- Template 1 :- Glider -->
+            <button class="btn btn-sm btn-primary ms-2 bi bi-1-circle" title="Reset matrix"
+                (click)="AddGliderPattern()"><span class="ms-2">Glider Plane</span></button>
+            <!-- Template 2 :- Pulsar -->
+            <button class="btn btn-sm btn-primary ms-2 bi bi-2-circle" title="Reset matrix"
+                (click)="AddPulsarPattern()"><span class="ms-2">Pulsar</span></button>
+            <!-- Template 3 :- Pulsar -->
+            <button class="btn btn-sm btn-primary ms-2 bi bi-3-circle" title="Reset matrix"
+                (click)="AddRandomCells()"><span class="ms-2">Random</span></button>
+        </div>
+        <div class="col-12">
+            <label for="customRange1" class="form-label">Animation pace :</label>
+            <input type="range" class="form-range" id="customRange1" min="1" max="40" step="1" (change)="AnimationPaceChanged()" [(ngModel)]="AnimationSpeed">
+        </div>
     </div>
-    <div class="text-right border col-6 d-flex">
-        <!-- Template 1 :- Glider -->
-        <button class="btn btn-sm btn-primary ms-2 bi bi-1-circle" title="Reset matrix"
-            (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
-        <!-- Template 2 :- Pulsar -->
-        <button class="btn btn-sm btn-primary ms-2 bi bi-2-circle" title="Reset matrix"
-            (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
-        <!-- Template 3 :- Pulsar -->
-        <button class="btn btn-sm btn-primary ms-2 bi bi-2-circle" title="Reset matrix"
-        (click)="CreateNewCellMatrixOrReset()"><span class="ms-2">Glider Plane</span></button>
-    </div>
-</div>
-    <table>
+    <table class="p-1">
         <ng-template #matrixContainer></ng-template>
     </table>
 </div>
