@@ -44,7 +44,11 @@ export class GolmatrixComponent {
   }
 
   public StartTimer(){    
-    this.timer=setInterval(()=>this.GotoNextGeneration(),((1/this.AnimationSpeed)*1000));
+    if(null!=this.timer){
+      clearInterval(this.timer);
+      this.AnimationState=false;
+    }
+    this.timer=setInterval(()=>this.GotoNextGeneration(),((1/this.AnimationSpeed)*1000));    
     this.AnimationState=true;
   }
   

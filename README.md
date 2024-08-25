@@ -1,27 +1,32 @@
-# GameOfLife
+# Game of Life Game in Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.7.
+## What is conway's game of life?
+The Game of Life (an example of a cellular automaton) is played on an infinite two-dimensional rectangular grid of cells. Each cell can be either alive or dead. The status of each cell changes each turn of the game (also called a generation) depending on the statuses of that cell's 8 neighbors. Neighbors of a cell are cells that touch that cell, either horizontal, vertical, or diagonal from that cell.
 
-## Development server
+The initial pattern is the first generation. The second generation evolves from applying the rules simultaneously to every cell on the game board, i.e. births and deaths happen simultaneously. Afterwards, the rules are iteratively applied to create future generations. For each generation of the game, a cell's status in the next generation is determined by a set of rules. These simple rules are as follows:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+If the cell is alive, then it stays alive if it has either 2 or 3 live neighbors
+If the cell is dead, then it springs to life only in the case that it has 3 live neighbors
+There are, of course, as many variations to these rules as there are different combinations of numbers to use for determining when cells live or die. Conway tried many of these different variants before settling on these specific rules. Some of these variations cause the populations to quickly die out, and others expand without limit to fill up the entire universe, or some large portion thereof. The rules above are very close to the boundary between these two regions of rules, and knowing what we know about other chaotic systems, you might expect to find the most complex and interesting patterns at this boundary, where the opposing forces of runaway expansion and death carefully balance each other. Conway carefully examined various rule combinations according to the following three criteria:
 
-## Code scaffolding
+There should be no initial pattern for which there is a simple proof that the population can grow without limit.
+There should be initial patterns that apparently do grow without limit.
+There should be simple initial patterns that grow and change for a considerable period of time before coming to an end in the following possible ways:
+Fading away completely (from overcrowding or from becoming too sparse)
+Settling into a stable configuration that remains unchanged thereafter, or entering an oscillating phase in which they repeat an endless cycle of two or more periods.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Reference: https://pi.math.cornell.edu/~lipa/mec/lesson6.html 
 
-## Build
+## About angular app implementation of conway's game of life
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Each cell is a separate component of angular. The grid is component that contains dynamic number of component inside it. Each cell component has is its own state if it is alive or not. It also contains the knowledge about surrounding cell's state.
 
-## Running unit tests
+On starting generation, each cell calculates it's own next generation state.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Game of life home page](GameOfLifePage.png)
 
-## Running end-to-end tests
+## Demo
+[![Alt text](VideoThumbnail.png)](ameOfLifeRecording.mp4)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
