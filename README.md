@@ -26,7 +26,7 @@ On starting generation, each cell calculates it's own next generation state.
 ![Game of life home page](GameOfLifePage.png)
 
 ## Demo
-[![Alt text](VideoThumbnail.png)](ameOfLifeRecording.mp4)
+[![Alt text](VideoThumbnail.png)](GameOfLifeRecording.mp4)
 
 
 
